@@ -8,10 +8,7 @@ import com.github.synnerz.placoderm.scheduler.Scheduler
 import com.github.synnerz.placoderm.statistics.Ping
 
 object Placoderm : PlacoInitializer("placoderm") {
-	var start = 0L
 	override fun onPreApiInitialize() {
-		log("loading api")
-		start = System.currentTimeMillis()
 		apis.addAll(listOf(
 			EventBus,
 			ChatUtils,
@@ -19,9 +16,5 @@ object Placoderm : PlacoInitializer("placoderm") {
 			Location,
 			Ping,
 		))
-	}
-
-	override fun onPostApiInitialize() {
-		log("post api load ${System.currentTimeMillis() - start}ms")
 	}
 }
