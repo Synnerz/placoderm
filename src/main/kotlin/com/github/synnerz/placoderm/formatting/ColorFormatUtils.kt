@@ -102,8 +102,6 @@ object ColorFormatUtils {
         return component
     }
 
-    fun String.fromLegacy(): Component = fromLegacy(this)
-
     fun Component.colorCodes(): String {
         var str = parseFormat(this)
 
