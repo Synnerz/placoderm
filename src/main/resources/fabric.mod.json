@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "placoderm",
+	"version": "${version}",
+	"name": "Placoderm",
+	"description": "an api with useful tools for developers",
+	"authors": ["DocilElm", "Ch1ck3nNeedsRNG"],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "GPL-3.0",
+	"icon": "assets/placoderm/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"client": [
+			{
+				"value": "com.github.synnerz.placoderm.Placoderm",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"placoderm.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*",
+		"hypixel-mod-api": ">=1.0.1"
+	}
+}
