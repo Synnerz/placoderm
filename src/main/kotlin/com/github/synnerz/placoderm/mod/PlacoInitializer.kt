@@ -1,12 +1,16 @@
 package com.github.synnerz.placoderm.mod
 
+import com.github.synnerz.placoderm.chat.ChatUtils
 import com.github.synnerz.placoderm.internal.Api
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.Minecraft
 import net.minecraft.resources.Identifier
 import org.slf4j.LoggerFactory
 
-abstract class PlacoInitializer(val modId: String) : ClientModInitializer {
+abstract class PlacoInitializer @JvmOverloads constructor(
+    val modId: String,
+    val prefix: String? = null
+) : ClientModInitializer {
     private val logger = LoggerFactory.getLogger(modId)
     val apis = mutableListOf<Api>()
     val minecraft by lazy { Minecraft.getInstance() }
@@ -47,6 +51,11 @@ abstract class PlacoInitializer(val modId: String) : ClientModInitializer {
 
     fun log(message: String)
         = logger.info(message)
+
+    @JvmOverloads
+    fun sendMessage(message: String, withPrefix: Boolean = false) {
+        ChatUtils.sendMessage("${if (withPrefix && prefix != null) "$prefix " else ""}$message")
+    }
 
     fun identifier(path: String): Identifier
         = Identifier.fromNamespaceAndPath(modId, path)
