@@ -16,13 +16,13 @@ import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse.BodyHandlers
 import java.time.Duration
 
-object WebRequests : Api() {
+class WebRequests(val modId: String) : Api() {
     val httpClient = HttpClient
         .newBuilder()
         .connectTimeout(Duration.ofSeconds(20))
         .followRedirects(HttpClient.Redirect.NORMAL)
         .build()
-    val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO + CoroutineName("Placoderm"))
+    val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO + CoroutineName(modId))
 
     override fun onInitialize() {
         on<GameUnloadEvent> {
@@ -35,13 +35,13 @@ object WebRequests : Api() {
     ): String {
         val request = HttpRequest.newBuilder()
             .uri(URI.create(url))
-            .headers("User-Agent", "Mozilla/5.0 (Placoderm)")
+            .headers("User-Agent", "Mozilla/5.0 ($modId)")
             .GET()
             .build()
 
         val response = httpClient.sendAsync(request, BodyHandlers.ofString()).await()
         if (response.statusCode() !in 200..299) {
-            println("Placoderm\$WebRequest(url=\"$url\", mode=\"GET\", status=\"${response.statusCode()}\", body=\"${response.body()}\")")
+            println("$modId\$WebRequest(url=\"$url\", mode=\"GET\", status=\"${response.statusCode()}\", body=\"${response.body()}\")")
             throw Exception("WebRequests #GET Error ${response.statusCode()}: ${response.body()}")
         }
 
@@ -55,14 +55,14 @@ object WebRequests : Api() {
     ): String {
         val request = HttpRequest.newBuilder()
             .uri(URI.create(url))
-            .headers("User-Agent", "Mozilla/5.0 (Placoderm)")
+            .headers("User-Agent", "Mozilla/5.0 ($modId)")
             .headers("Content-Type", contentType)
             .POST(BodyPublishers.ofString(body))
             .build()
 
         val response = httpClient.sendAsync(request, BodyHandlers.ofString()).await()
         if (response.statusCode() !in 200..299) {
-            println("Placoderm\$WebRequest(url=\"$url\", mode=\"POST\", status=\"${response.statusCode()}\", body=\"${response.body()}\")")
+            println("$modId\$WebRequest(url=\"$url\", mode=\"POST\", status=\"${response.statusCode()}\", body=\"${response.body()}\")")
             throw Exception("WebRequests #POST Error ${response.statusCode()}: ${response.body()}")
         }
 
@@ -76,7 +76,7 @@ object WebRequests : Api() {
         try {
             block()
         } catch (e: Exception) {
-            println("Placoderm\$WebRequest Error - $name")
+            println("$modId\$WebRequest Error - $name")
             e.printStackTrace()
         }
     }
@@ -85,9 +85,13 @@ object WebRequests : Api() {
         try {
             block()
         } catch (e: Exception) {
-            println("Placoderm\$WebRequest Error - $name")
+            println("$modId\$WebRequest Error - $name")
             e.printStackTrace()
             catch()
         }
+    }
+
+    companion object {
+        val DEFAULT = WebRequests("Placoderm")
     }
 }

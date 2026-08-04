@@ -16,7 +16,7 @@ object Placoderm : PlacoInitializer("placoderm") {
 			Scheduler,
 			Location,
 			Ping,
-			WebRequests,
+			WebRequests.DEFAULT,
 		))
 	}
 }
