@@ -4,7 +4,6 @@ import com.github.synnerz.placoderm.internal.Api
 import com.github.synnerz.placoderm.event.PacketReceivedEvent
 import com.github.synnerz.placoderm.event.PacketSentEvent
 import com.github.synnerz.placoderm.event.TickEvent
-import com.github.synnerz.placoderm.internal.on
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
 import net.minecraft.network.protocol.ping.ClientboundPongResponsePacket
@@ -13,7 +12,7 @@ import net.minecraft.util.Util
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.ConcurrentSkipListSet
 
-object Ping : Api {
+object Ping : Api() {
     private var lastBeat = 0L
 
     private val samples = ConcurrentLinkedQueue<PingSample>()

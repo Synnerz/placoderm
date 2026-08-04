@@ -7,10 +7,9 @@ import com.github.synnerz.placoderm.event.SubAreaEvent
 import com.github.synnerz.placoderm.event.TabUpdateEvent
 import com.github.synnerz.placoderm.event.WorldChangeEvent
 import com.github.synnerz.placoderm.event.WorldDestroyEvent
-import com.github.synnerz.placoderm.internal.on
 import com.github.synnerz.placoderm.state.BasicState
 
-object Location : Api {
+object Location : Api() {
     val areaRegex = "^(?:Area|Dungeon): ([\\w ']+)\$".toRegex()
     val subAreaRegex = "^ ([⏣ф]) ".toRegex()
     var area: String? = null

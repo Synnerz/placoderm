@@ -1,9 +1,9 @@
 package com.github.synnerz.placoderm.event
 
-import com.github.synnerz.placoderm.internal.Api
 import com.github.synnerz.placoderm.scheduler.Scheduler
 import com.github.synnerz.placoderm.statistics.Ping
 import com.github.synnerz.placoderm.formatting.ColorFormatUtils.clearCodes
+import com.github.synnerz.placoderm.internal.IApi
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLevelEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
@@ -46,7 +46,7 @@ import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 import kotlin.reflect.full.hasAnnotation
 
-object EventBus : Api {
+object EventBus : IApi {
     var totalTicks = 0
     var clientTicks = 0
     private val teamRegex = "^team_(\\d+)$".toRegex()

@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.ContainerInput
 import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
 
-object ScreenUtils : Api {
+object ScreenUtils : Api() {
     @JvmOverloads
     fun click(slot: Int, shift: Boolean = false, button: String = "LEFT"): Boolean {
         val screen = minecraft.gui.screen() ?: return false

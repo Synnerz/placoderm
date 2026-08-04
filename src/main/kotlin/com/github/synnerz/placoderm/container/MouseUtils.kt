@@ -3,7 +3,7 @@ package com.github.synnerz.placoderm.container
 import com.github.synnerz.placoderm.internal.Api
 import kotlin.math.max
 
-object MouseUtils : Api {
+object MouseUtils : Api() {
     val mouseHandler by lazy { minecraft.mouseHandler }
     val x get() = x(WindowUtils.guiScale)
     val y get() = y(WindowUtils.guiScale)

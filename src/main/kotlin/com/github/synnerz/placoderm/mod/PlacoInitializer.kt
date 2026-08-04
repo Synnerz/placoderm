@@ -1,7 +1,7 @@
 package com.github.synnerz.placoderm.mod
 
 import com.github.synnerz.placoderm.chat.ChatUtils
-import com.github.synnerz.placoderm.internal.Api
+import com.github.synnerz.placoderm.internal.IApi
 import net.fabricmc.api.ClientModInitializer
 import net.minecraft.client.Minecraft
 import net.minecraft.resources.Identifier
@@ -12,14 +12,14 @@ abstract class PlacoInitializer @JvmOverloads constructor(
     val prefix: String? = null
 ) : ClientModInitializer {
     private val logger = LoggerFactory.getLogger(modId)
-    val apis = mutableListOf<Api>()
+    val apis = mutableListOf<IApi>()
     val minecraft by lazy { Minecraft.getInstance() }
 
     // TODO: perhaps there are better ways to do this and also naming
     override fun onInitializeClient() {
         onPreInitialize()
         onPreApiInitialize()
-        apis.forEach(Api::onInitialize)
+        apis.forEach(IApi::onInitialize)
         onPostApiInitialize()
         onPreLoad()
         onPreCommand()
@@ -49,13 +49,11 @@ abstract class PlacoInitializer @JvmOverloads constructor(
     // runs after preCommand is called
     open fun onPostCommand() {}
 
-    fun log(message: String)
-        = logger.info(message)
+    fun log(message: String) = logger.info(message)
 
     @JvmOverloads
-    fun sendMessage(message: String, withPrefix: Boolean = false) {
-        ChatUtils.sendMessage("${if (withPrefix && prefix != null) "$prefix " else ""}$message")
-    }
+    fun sendMessage(message: String, withPrefix: Boolean = false)
+        = ChatUtils.sendMessage("${if (withPrefix && prefix != null) "$prefix " else ""}$message")
 
     fun identifier(path: String): Identifier
         = Identifier.fromNamespaceAndPath(modId, path)

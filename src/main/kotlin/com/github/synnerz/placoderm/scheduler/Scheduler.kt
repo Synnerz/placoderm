@@ -3,7 +3,6 @@ package com.github.synnerz.placoderm.scheduler
 import com.github.synnerz.placoderm.event.ClientThreadServerTickEvent
 import com.github.synnerz.placoderm.internal.Api
 import com.github.synnerz.placoderm.event.GameUnloadEvent
-import com.github.synnerz.placoderm.internal.on
 import kotlinx.atomicfu.atomic
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import java.util.concurrent.ConcurrentLinkedQueue
@@ -11,7 +10,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.PriorityBlockingQueue
 import java.util.concurrent.ScheduledExecutorService
 
-object Scheduler : Api {
+object Scheduler : Api() {
     private val taskComp = compareBy<Task>({ it.delay }, { it.id })
     private val tasks = PriorityBlockingQueue<Task>(10, taskComp)
     private var tick = atomic(0)

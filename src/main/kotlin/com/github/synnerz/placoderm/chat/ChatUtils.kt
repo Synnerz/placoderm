@@ -2,7 +2,6 @@ package com.github.synnerz.placoderm.chat
 
 import com.github.synnerz.placoderm.event.TickEvent
 import com.github.synnerz.placoderm.internal.Api
-import com.github.synnerz.placoderm.internal.on
 import com.github.synnerz.placoderm.mixin.accessor.ChatComponentAccessor
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 import net.fabricmc.fabric.impl.command.client.ClientCommandInternals
@@ -15,7 +14,7 @@ import net.minecraft.network.chat.MutableComponent
 import java.util.IdentityHashMap
 import kotlin.math.roundToInt
 
-object ChatUtils : Api {
+object ChatUtils : Api() {
     private var needRefresh = 0
     val chatLineIds = mutableMapOf<GuiMessage, Int>()
     val lineCache = IdentityHashMap<GuiMessage.Line, GuiMessage>()

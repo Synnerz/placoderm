@@ -2,7 +2,7 @@ package com.github.synnerz.placoderm.container
 
 import com.github.synnerz.placoderm.internal.Api
 
-object WindowUtils : Api {
+object WindowUtils : Api() {
     val window get() = minecraft.window
     val width get() = window.width
     val height get() = window.height
